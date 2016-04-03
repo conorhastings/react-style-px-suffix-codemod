@@ -1,6 +1,6 @@
 {
   "name": "react-style-px-suffix-codemod",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "append px to shorthand values in style objects in react in prep for react 15 warning",
   "main": "index.js",
   "scripts": {
