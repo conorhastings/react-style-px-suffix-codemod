@@ -60,11 +60,15 @@ module.exports = function (file, api, options) {
         const varName = style.value.expression.name;
         source.findVariableDeclarators(varName).forEach(o => {
           const properties = o.value.init.properties;
-          transformProperties(properties);
+          if (properties) {
+            transformProperties(properties);
+          }
         }); 
       } else if (type === 'ObjectExpression') {
         const properties = style.value.expression.properties;
-        transformProperties(properties);
+        if (properties) {
+          transformProperties(properties);
+        }
       }
     }
   });
