@@ -61,6 +61,7 @@ module.exports = function (file, api, options) {
       itemsToNotSuffixWithPx = itemsToNotSuffixWithPx.concat(toIgnore);
     }
   }
+  const printOptions = options.printOptions || {};
   const shift = api.jscodeshift;
   const source = shift(file.source);
   source.find(shift.JSXOpeningElement).forEach(el => {
@@ -90,5 +91,5 @@ module.exports = function (file, api, options) {
       }
     }
   });
-  return source.toSource();
+  return source.toSource(printOptions);
 }
