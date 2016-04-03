@@ -61,11 +61,19 @@ function transformProperties (props, source) {
 function transformConditional (o, source) {
   const consequent = o.consequent;
   const alternate = o.alternate;
-  if (consequent && consequent.type === 'ObjectExpression' && consequent.properties) {
-    transformProperties(consequent.properties, source);
+  if (consequent) {
+    if (consequent.type === 'ObjectExpression' && consequent.properties) {
+      transformProperties(consequent.properties, source);
+    } else if (consequent.type === 'Identifier') {
+      transformStyleObject(consequent, source);
+    }
   } 
-  if (alternate && alternate.type === 'ObjectExpression' && alternate.properties) {
-    transformProperties(alternate.properties, source);
+  if (alternate) {
+    if (alternate.type === 'ObjectExpression' && alternate.properties) {
+      transformProperties(alternate.properties, source);
+    } else if (alternate.type === 'Identifier') {
+      transformStyleObject(alternate, source);
+    }
   } 
 }
 
