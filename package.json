@@ -1,0 +1,23 @@
+{
+  "name": "react-style-px-codemod",
+  "version": "0.0.1",
+  "description": "append px to shorthand values in style objects in react in prep for react 15 warning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo no tests"
+  },
+  "keywords": [
+    "codemod",
+    "react",
+    "style",
+    "inline-style",
+    "react-style",
+    "react-15"
+  ],
+  "author": "Conor Hastings",
+  "license": "MIT",
+  "devDependencies": {
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8"
+  }
+}
