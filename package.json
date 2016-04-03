@@ -4,7 +4,7 @@
   "description": "append px to shorthand values in style objects in react in prep for react 15 warning",
   "main": "index.js",
   "scripts": {
-    "test": "echo no tests"
+    "test": "f() { EXIT=0; NODE_ENV=test jest $@ || EXIT=$?; exit $EXIT; }; f"
   },
   "keywords": [
     "codemod",
@@ -14,9 +14,23 @@
     "react-style",
     "react-15"
   ],
+  "jest": {
+    "setupFiles": [
+      "jest/env.js"
+    ],
+    "globals": {
+      "baseDir": "../"
+    },
+    "testPathDirs": [
+      "test"
+    ]
+  },
   "author": "Conor Hastings",
   "license": "MIT",
   "devDependencies": {
+    "babel-jest": "^10.0.1",
+    "jest-cli": "^0.10.0",
+    "jscodeshift": "^0.3.19",
     "react": "^0.14.8",
     "react-dom": "^0.14.8"
   }

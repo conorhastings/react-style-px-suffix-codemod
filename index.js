@@ -35,7 +35,7 @@ const getStyle = attrs => attrs.find(attr => attr.name && attr.name.name === 'st
 
 const transformProperties = props => {
   props.forEach(p => {
-    const key = p.key.name;
+    const key = p.key.type === 'Identifier' ? p.key.name : p.key.value;
     const val = p.value.value;
     if (shouldSuffixIfIntergerValue(key) && typeof val === 'number') {
       p.value.value = `${val}px`;
