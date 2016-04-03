@@ -43,6 +43,17 @@ const transformProperties = props => {
   });
 };
 
+const transformConditional = (o) => {
+  const consequent = o.consequent;
+  const alternate = o.alternate;
+  if (consequent && consequent.type === 'ObjectExpression' && consequent.properties) {
+    transformProperties(consequent.properties);
+  } 
+  if (alternate && alternate.type === 'ObjectExpression' && alternate.properties) {
+    transformProperties(alternate.properties);
+  } 
+};
+
 module.exports = function (file, api, options) {
   if (options.ignore) {
     const toIgnore = options.ignore.split(',');
@@ -59,7 +70,12 @@ module.exports = function (file, api, options) {
       if (type === 'Identifier') {
         const varName = style.value.expression.name;
         source.findVariableDeclarators(varName).forEach(o => {
-          const properties = o.value.init.properties;
+          let properties;
+          if (o.value.init.type === 'ObjectExpression') {
+            properties = o.value.init.properties;
+          } else if (o.value.init.type === 'ConditionalExpression') {
+            transformConditional(o.value.init);
+          }
           if (properties) {
             transformProperties(properties);
           }
@@ -69,6 +85,8 @@ module.exports = function (file, api, options) {
         if (properties) {
           transformProperties(properties);
         }
+      } else if (type === 'ConditionalExpression') {
+        transformConditional(style.value.expression);
       }
     }
   });
