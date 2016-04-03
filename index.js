@@ -65,10 +65,13 @@ function transformStyleObject(style, source) {
     const varName = style.name;
     source.findVariableDeclarators(varName).forEach(o => {
       let properties;
-      if (o.value.init.type === 'ObjectExpression') {
+      const type = o.value.init.type;
+      if (type === 'ObjectExpression') {
         properties = o.value.init.properties;
-      } else if (o.value.init.type === 'ConditionalExpression') {
+      } else if (type === 'ConditionalExpression') {
         transformConditional(o.value.init, source);
+      } else if (type === 'CallExpression' &&  o.value.init.callee.property.name === 'assign') {
+        o.value.init.arguments.forEach(arg => transformStyleObject(arg, source));
       }
       if (properties) {
         transformProperties(properties, source);
