@@ -40,7 +40,17 @@ function transformProperties (props, source) {
     }
     else {
       const key = p.key.type === 'Identifier' ? p.key.name : p.key.value;
-      const val = p.value.value;
+      let val = p.value.value;
+      if (val === undefined) {
+        if (p.value.type === 'UnaryExpression') {
+          val = parseInt(`${p.value.operator}${p.value.argument.value}`); 
+          if (shouldSuffixIfIntergerValue(key) && typeof val === 'number') {
+            p.value.operator = '';
+            p.value.argument.value = `${val}px`;
+          }  
+          return;
+        }
+      }
       if (shouldSuffixIfIntergerValue(key) && typeof val === 'number') {
         p.value.value = `${val}px`;
       }
