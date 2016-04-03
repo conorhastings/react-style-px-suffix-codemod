@@ -1,6 +1,6 @@
 'use strict';
 
-const itemsToNotSuffixWithPx = [
+let itemsToNotSuffixWithPx = [
   'animationIterationCount',
   'boxFlex',
   'boxFlexGroup',
@@ -43,7 +43,13 @@ const transformProperties = props => {
   });
 };
 
-module.exports = function (file, api) {
+module.exports = function (file, api, options) {
+  if (options.ignore) {
+    const toIgnore = options.ignore.split(',');
+    if (toIgnore.length) {
+      itemsToNotSuffixWithPx = itemsToNotSuffixWithPx.concat(toIgnore);
+    }
+  }
   const shift = api.jscodeshift;
   const source = shift(file.source);
   source.find(shift.JSXOpeningElement).forEach(el => {
