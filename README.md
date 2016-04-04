@@ -2,7 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/conorhastings/react-style-px-suffix-codemod.svg?style=svg)](https://circleci.com/gh/conorhastings/react-style-px-suffix-codemod)
 
-Starting with React 15, React will warn that unitless values will no longer bw appended with `px` and the appending will be removed in future versions of react,this is a codemod that finds unitless specifications in your code and appends with `px`.
+Starting with React 15, React will warn that unitless values will no longer be appended with `px` and the appending will be removed in future versions of react,this is a codemod that finds unitless specifications in your code and appends with `px`.
 
 ## use
 
